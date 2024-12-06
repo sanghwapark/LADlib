@@ -246,6 +246,14 @@ Int_t THcLADGEM::CoarseProcess( TClonesArray& tracks )
       v_hit1.RotateY(angle);
       v_hit2.RotateY(angle);
       
+      // Set New position
+      gemhit1.posX = v_hit1[0];
+      gemhit1.posY = v_hit1[1];
+      gemhit1.posZ = v_hit1[2];
+      gemhit2.posX = v_hit2[0];
+      gemhit2.posY = v_hit2[1];
+      gemhit2.posZ = v_hit2[2];
+
       // d0: DCAr from the primary vertex, assume (0,0,0) for now
       // we want to get the primary vtx from HMS eventually whenever available
       TVector3 v_prim(0., 0., 0.);
@@ -267,8 +275,8 @@ Int_t THcLADGEM::CoarseProcess( TClonesArray& tracks )
       // Add track object
       THcLADGEMTrack *theGEMTrack = new ( (*fGEMTracks)[fNTracks] ) THcLADGEMTrack(fNLayers);
       theGEMTrack->SetTrackID(fNTracks); 
-      theGEMTrack->AddSpacePoint(gemhit2);
       theGEMTrack->AddSpacePoint(gemhit1);
+      theGEMTrack->AddSpacePoint(gemhit2);
       theGEMTrack->SetTime(tmean, tdiff);
       theGEMTrack->SetD0(d0);
       theGEMTrack->SetZVertex(vpz);
